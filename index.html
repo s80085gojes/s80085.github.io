@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Bento Grid Landing Page</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /*
+        * 1. Technical Rules: Single HTML file with internal CSS
+        * 3. Technical Rules: Modern sans-serif font (Inter)
+        * 4. Technical Rules: Clean, scientific, and modern color palette
+        */
+
+        :root {
+            /* Color Palette */
+            --color-bg: #f9f9f9;
+            --color-card-bg: #ffffff;
+            --color-text-primary: #1c1c1e;
+            --color-text-secondary: #6e6e73;
+            --color-border: #e8e8e8;
+            /* UPDATED: Deep 'Ocean Blue' Accent */
+            --color-accent: #004d99; 
+
+            /* Spacing */
+            --spacing-unit: 1rem;
+            --spacing-padding-card: 1.5rem;
+            --spacing-gap: 1rem;
+
+            /* Typography */
+            --font-family-primary: 'Inter', sans-serif;
+
+            /* Border Radius */
+            --radius-default: 12px;
+        }
+
+        /* Base Styles */
+        body {
+            font-family: var(--font-family-primary);
+            background-color: var(--color-bg);
+            color: var(--color-text-primary);
+            margin: 0;
+            padding: 2rem var(--spacing-unit);
+            line-height: 1.6;
+        }
+
+        /* Container for the Bento Grid */
+        .bento-grid-container {
+            max-width: 1200px; /* Max width for desktop */
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* Default 4-column layout on desktop */
+            grid-template-rows: auto;
+            gap: var(--spacing-gap);
+            grid-auto-flow: dense; /* Allows smaller items to fill gaps */
+        }
+
+        /* Card Styles */
+        .bento-card {
+            background-color: var(--color-card-bg);
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-default);
+            padding: var(--spacing-padding-card);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .bento-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Typography within cards */
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-primary);
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-accent);
+            margin-bottom: 0.75rem;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: var(--color-text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Accent Styles */
+        .accent-text {
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        /* Social Links Styling (Card 1) */
+        .social-links a {
+            color: var(--color-accent);
+            text-decoration: none;
+            font-weight: 500;
+            margin-right: 1rem;
+            font-size: 0.9rem;
+            display: inline-block;
+            transition: color 0.2s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--color-text-primary);
+        }
+
+        /* Specific Card Grid Spanning (Desktop Layout) */
+        .card-profile { grid-column: span 2; grid-row: span 2; }
+        .card-location { 
+            grid-column: span 1; 
+            grid-row: span 1; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        .card-location .card-title { font-size: 1.5rem; }
+        .card-tech-stack { grid-column: span 1; grid-row: span 1; }
+        .card-case-study { grid-column: span 2; }
+        .card-hobby { grid-column: span 1; grid-row: span 1; }
+        .card-playlist {
+            grid-column: span 4;
+            padding: 1.5rem;
+            background-color: #f0f0f5; 
+            border-color: #dcdcdc;
+            text-align: center;
+            font-weight: 500;
+        }
+        .card-playlist .card-title { color: var(--color-text-secondary); }
+
+
+        /*
+        * 2. Technical Rules: Fully responsive - Stacked vertically on mobile
+        */
+
+        @media (max-width: 768px) {
+            .bento-grid-container {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                padding: 0;
+            }
+
+            .bento-card {
+                grid-column: span 1 !important;
+                grid-row: span 1 !important;
+            }
+
+            body {
+                padding: 1rem; 
+            }
+
+            .card-location, .card-playlist {
+                padding: var(--spacing-padding-card);
+            }
+
+            .card-location .card-title {
+                font-size: 1.25rem;
+            }
+
+            .card-text, .social-links a {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Simple animation for better visual feedback */
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 1; }
+            100% { opacity: 0.8; }
+        }
+
+        .card-location .card-title::after {
+            content: ' •';
+            display: inline-block;
+            color: #34c759; /* Green for 'online' */
+            animation: pulse 2s infinite ease-in-out;
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <div class="bento-grid-container">
+
+        <div class="bento-card card-profile">
+            <div>
+                <h1 class="card-title" style="font-size: 2rem; margin-bottom: 0.25rem;">NUHA BINTI AHMAD</h1>
+                <p class="card-subtitle">Student <span class="accent-text">/ Food Technology</span></p>
+                <p class="card-text" style="font-style: italic; font-weight: 500; color: var(--color-text-primary);">
+                    "Innovating food safety."
+                </p>
+                <p class="card-text">
+                    A dedicated Food Technology student focused on quality control and sustainable processing. Currently completing <span class="accent-text">Year 1</span> studies.
+                </p>
+            </div>
+            <div class="social-links">
+                <a href="#linkedin" target="_blank" title="LinkedIn">LinkedIn</a>
+                <a href="#github" target="_blank" title="GitHub">GitHub</a>
+                <a href="#portal" target="_blank" title="UMT Portal">UMT Portal</a>
+            </div>
+        </div>
+
+        <div class="bento-card card-location">
+            <p class="card-text" style="margin-bottom: 0.25rem;">Campus Location</p>
+            <h2 class="card-title">UMT, Kuala Nerus</h2>
+            <p class="card-text" id="time-display" style="font-size: 0.9rem; margin-top: 0.5rem;"></p>
+            <script>
+                // Simple script to display local time for a dynamic feel
+                function updateTime() {
+                    const now = new Date();
+                    // Format time as HH:MM:SS AM/PM
+                    const timeString = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                    document.getElementById('time-display').textContent = timeString;
+                }
+                updateTime();
+                setInterval(updateTime, 1000);
+            </script>
+        </div>
+
+        <div class="bento-card card-tech-stack">
+            <h3 class="card-title">Key Modules & Skills</h3>
+            <p class="card-text"><span class="accent-text">Core Subjects:</span> Food Chemistry, Food Microbiology</p>
+            <p class="card-text"><span class="accent-text">Lab Skills:</span> Instrumental Analysis, Lab Protocols</p>
+            <p class="card-text"><span class="accent-text">Software:</span> Advanced Excel Data Management</p>
+        </div>
+
+        <div class="bento-card card-case-study">
+            <h3 class="card-title">Current Research</h3>
+            <p class="card-subtitle">Starch Gelatinization in Local Kuih</p>
+            <p class="card-text">
+                <span class="accent-text">Title:</span> Analyzing texture profiles of traditional 'Kuih Lapis' using Rheological techniques.
+            </p>
+            <p class="card-text" style="font-size: 0.85rem; color: #a1a1a6;">
+                <span class="accent-text">Focus:</span> Optimizing ingredient ratios for improved consumer sensory experience and shelf stability.
+            </p>
+        </div>
+
+        <div class="bento-card card-hobby">
+            <h3 class="card-title">Campus Life</h3>
+            <p class="card-subtitle">Recharge Activity</p>
+            <p class="card-text">
+                Enjoying peaceful <span class="accent-text">Evening walks at Pantai UMT</span> to de-stress and appreciate the natural campus environment.
+            </p>
+        </div>
+
+        <div class="bento-card card-playlist">
+            <h3 class="card-title">🎧 Study Session Soundtrack</h3>
+            <p class="card-text" style="margin-bottom: 0;">
+                (Placeholder for a music player widget/embed)
+            </p>
+            <p class="card-text" style="font-size: 0.9rem; color: var(--color-text-secondary);">
+                Lo-fi Beats for Focus / Classical Music for Deep Work
+            </p>
+        </div>
+
+    </div>
+
+</body>
+</html>
